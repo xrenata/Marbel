@@ -28,7 +28,8 @@ To get started with Marbel, follow these steps:
     ```yaml
     token: "your_secret_token"
     clientId: 'your_clientId'
-    guildId: '' # Optional    ```
+    guildId: '' # Optional    
+    ```
 
 4. Run the bot:
     ```sh
