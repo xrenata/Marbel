@@ -28,6 +28,8 @@ module.exports = {
   - WebSocket Ping: **${wsPing}ms**
   - Database Status: ${mongoPingTime}
   - Message Latency: **${Date.now() - interaction.createdTimestamp}ms**
+  - Servers Count: **${interaction.client.guilds.cache.size}**
+  - Users Count: **${interaction.client.users.cache.size}**
 - Server
   - Arch: **${os.arch()}**
   - OS: **${os.type()} ${os.release()}**
