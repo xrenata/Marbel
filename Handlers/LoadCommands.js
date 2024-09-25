@@ -11,7 +11,7 @@ module.exports = async function LoadCommand(client) {
 
     const data = []
 
-    const slashCommandsPath = path.join(__dirname, '../SlashCommands');
+    const slashCommandsPath = path.join(__dirname, '../Commands/SlashCommands');
     const slashCommandFiles = fs.readdirSync(slashCommandsPath).filter(file => file.endsWith('.js'));
 
     if (slashCommandFiles.length > 0) {
@@ -22,7 +22,7 @@ module.exports = async function LoadCommand(client) {
             client.slashCommands.set(command.data.name, command);
         }
     }
-    const contextMenusPath = path.join(__dirname, '../ContextMenus');
+    const contextMenusPath = path.join(__dirname, '../Commands/ContextMenus');
     const contextMenuFiles = fs.readdirSync(contextMenusPath).filter(file => file.endsWith('.js'));
 
     if (contextMenuFiles.length > 0) {

@@ -3,8 +3,8 @@ const chalk = require('chalk');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-const LoadCommands = require('./handlers/LoadCommands');
-const LoadEvents = require('./handlers/LoadEvents');
+const LoadCommands = require('./Handlers/LoadCommands');
+const LoadEvents = require('./Handlers/LoadEvents');
 
 const client = new Client({
 	intents: [
@@ -20,7 +20,7 @@ const client = new Client({
 client.config = yaml.load(fs.readFileSync('./config.yml', 'utf8'));
 client.slashCommands = new Collection();
 client.contextMenus = new Collection();
-client.log = require('./handlers/LoadLogger').log;
+client.log = require('./Handlers/LoadLogger').log;
 LoadCommands(client)
 LoadEvents(client)
 
