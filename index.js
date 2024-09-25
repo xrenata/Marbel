@@ -1,6 +1,5 @@
 // Description: Main file for the bot.
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
-const chalk = require('chalk');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
