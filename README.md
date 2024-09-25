@@ -29,6 +29,7 @@ To get started with Marbel, follow these steps:
     token: "your_secret_token"
     clientId: 'your_clientId'
     guildId: '' # Optional
+    databaseURL: 'mongodb://localhost:27017' # Required
     status : {
     type: 'online', # Options: 'online', 'idle', 'dnd', 'invisible'
     activity: 'CustomStatus', # Options: 'Playing', 'Listening', 'Watching', 'CustomStatus'
