@@ -9,7 +9,7 @@ const log = (level, message) => {
     };
 
     const color = levels[level] || chalk.white;
-    const timestamp = new Date().toLocaleTimeString();
+    const timestamp = new Date().toLocaleString();
     console.log(`${chalk.gray(timestamp)} ${color(level.toUpperCase())} ${chalk.white(message)}`);
 };
 
