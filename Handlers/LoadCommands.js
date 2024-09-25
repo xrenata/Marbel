@@ -36,7 +36,7 @@ module.exports = async function LoadCommand(client) {
 
     if (data.length > 0) {
         try {
-            client.log('info', 'Commands Updated!')
+            client.log('info', 'Commands updated.')
             if (client.config.clientId && !client.config.guildId) {
                 await rest.put(
                     Routes.applicationCommands(client.config.clientId),

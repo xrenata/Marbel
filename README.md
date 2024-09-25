@@ -34,7 +34,12 @@ To get started with Marbel, follow these steps:
     type: 'online', # Options: 'online', 'idle', 'dnd', 'invisible'
     activity: 'CustomStatus', # Options: 'Playing', 'Listening', 'Watching', 'CustomStatus'
     text: 'Hello World!' # Required 
-    }    
+    }
+    dev: {
+    developers: ['937316083533230110'], # For admin, eval and reload commands
+    guildId: '1288559438675972159', # Required
+    blackListLog: '1288609577738178560', # Optional
+    }
     ```
 
 4. Run the bot:
