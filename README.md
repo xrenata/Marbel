@@ -28,7 +28,12 @@ To get started with Marbel, follow these steps:
     ```yaml
     token: "your_secret_token"
     clientId: 'your_clientId'
-    guildId: '' # Optional    
+    guildId: '' # Optional
+    status : {
+    type: 'online', # Options: 'online', 'idle', 'dnd', 'invisible'
+    activity: 'CustomStatus', # Options: 'Playing', 'Listening', 'Watching', 'CustomStatus'
+    text: 'Hello World!' # Required 
+    }    
     ```
 
 4. Run the bot:
