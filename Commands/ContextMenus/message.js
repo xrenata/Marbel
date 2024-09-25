@@ -9,7 +9,7 @@ module.exports = {
 
         interaction.reply({
             content: `Message Content: \`${message.content}\``,
-            ephemeral: true
+            ephemeral: false
         })
     },
 }
