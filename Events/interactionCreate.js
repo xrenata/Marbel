@@ -1,5 +1,6 @@
 const ChatInputInteraction = require('./interaction/ChatInput');
 const ContextMenuInteraction = require('./interaction/ContextMenu');
+const NoteInteraction = require('./interaction/NoteAutoComplete');
 const Blacklist = require('../Models/Blacklist');
 
 module.exports = {
@@ -11,5 +12,6 @@ module.exports = {
 		}
 		if (interaction.isChatInputCommand()) await ChatInputInteraction(interaction)
 		else if (interaction.isContextMenuCommand()) await ContextMenuInteraction(interaction)
+		else if (interaction.isAutocomplete()) await NoteInteraction(interaction)
 	},
 };
