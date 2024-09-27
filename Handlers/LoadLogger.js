@@ -5,7 +5,8 @@ const log = (level, message) => {
         info: chalk.blue,
         success: chalk.green,
         warning: chalk.yellow,
-        error: chalk.red
+        error: chalk.red,
+        spotify : chalk.green
     };
 
     const color = levels[level] || chalk.white;

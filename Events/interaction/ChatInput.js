@@ -3,7 +3,7 @@ module.exports = async function ChatInputInteraction(interaction) {
 
     if (!command) {
         interaction.client.log('error', `No command matching ${interaction.commandName} was found.`);
-        return interaction.reply({ content: 'Invalid Command!', ephemeral: true })
+        return interaction.reply({ content: 'Command not found maybe this is an error.', ephemeral: true })
     }
 
     try {
