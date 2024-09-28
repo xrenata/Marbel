@@ -29,7 +29,7 @@ module.exports = {
                 title: 'Your Spotify Data',
                 thumbnail: { url: interaction.user.displayAvatarURL({ dynamic: true }) },
                 description: currentData.map(data => {
-                    return `**${data.trackName}**\nArtist: ${data.artistName}\nAlbum: ${data.albumName}\nDate: <t:${Math.floor(new Date(data.playedAt).getTime() / 1000)}:R>`;
+                    return `**[${data.trackName}](${data.albumCover})**\nArtist: ${data.artistName}\nAlbum: ${data.albumName}\nDate: <t:${Math.floor(new Date(data.playedAt).getTime() / 1000)}:R>`;
                 }).join('\n\n'),
             };
         };
