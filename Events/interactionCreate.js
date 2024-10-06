@@ -2,7 +2,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const ChatInputInteraction = require('./interaction/ChatInput');
 const ContextMenuInteraction = require('./interaction/ContextMenu');
 const NoteInteraction = require('./interaction/NoteAutoComplete');
-const Blacklist = require('../Models/Blacklist');
+const AdminAutoComplete = require('./interaction/AdminAutoComplete');
 const User = require('../Models/User');
 module.exports = {
 	name: 'interactionCreate',
@@ -10,7 +10,7 @@ module.exports = {
 
 		if (interaction.isChatInputCommand()) await ChatInputInteraction(interaction)
 		else if (interaction.isContextMenuCommand()) await ContextMenuInteraction(interaction)
-		else if (interaction.isAutocomplete()) await NoteInteraction(interaction)
+		else if (interaction.isAutocomplete()) await AdminAutoComplete(interaction) || await NoteInteraction(interaction) 
 		else if (interaction.isButton()) {
 			if (interaction.customId === 'accept_policy') {
 				User.create({ 

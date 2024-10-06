@@ -35,7 +35,16 @@ module.exports = {
                 .addStringOption(option => 
                     option.setName('code')
                         .setDescription('The code to evaluate')
-                        .setRequired(true))),
+                        .setRequired(true)))
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('reload')
+                .setDescription('Reload a command')
+                .addStringOption(option => 
+                    option.setName('command')
+                        .setDescription('The command to reload')
+                        .setRequired(true)
+                        .setAutocomplete(true))),
     async execute(interaction) {
         if (!interaction.client.config.dev.developers.includes(interaction.user.id)) {
             return interaction.reply({ content: 'You do not have permission to use this command.', ephemeral: true });
@@ -129,6 +138,24 @@ module.exports = {
             } catch (error) {
                 console.error(error);
                 await interaction.reply(`\`ERROR\` \`\`\`xl\n${error}\n\`\`\``);
+            }
+        } if (subcommand === 'reload') {
+            const commandName = interaction.options.getString('command');
+            const command = interaction.client.slashCommands.get(commandName) || interaction.client.slashCommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+            if (!command) {
+                return interaction.reply(`There is no command with name or alias \`${commandName}\`, ${interaction.user}!`);
+            }
+
+            delete require.cache[require.resolve(`../${command.category}/${command.name}.js`)];
+
+            try {
+                const newCommand = require(`../${command.category}/${command.name}.js`);
+                interaction.client.commands.set(newCommand.name, newCommand);
+                await interaction.reply(`Command \`${newCommand.name}\` was reloaded!`);
+            } catch (error) {
+                console.error(error);
+                await interaction.reply(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
             }
         }
     },
