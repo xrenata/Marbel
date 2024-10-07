@@ -1,21 +1,30 @@
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const Spotify = require('../../Models/Spotify');
-
+const User = require('../../Models/User');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('spotify')
-        .setDescription('Get your Spotify data.'),
+        .setDescription('Get your Spotify data.')
+        .addUserOption(option =>
+            option.setName('user')
+            .setDescription('The user ID to fetch data for')
+            .setRequired(false)
+        ),
     /**
      * @param {CommandInteraction} interaction
      * @param {Client} client
      */
     async execute(interaction) {
-        const userId = interaction.user.id;
+        const user = interaction.options.getUser('user') || interaction.user
+        const userId = user.id
         const spotifyData = await Spotify.find({ userId: userId }).sort({ playedAt: -1 });
         if (spotifyData.length === 0) {
-            return interaction.reply('No data found for your user ID.');
+            return interaction.reply('No data found for user.');
         }
-
+        let CheckPrivate = await User.findOne({ userId: userId });
+        if (CheckPrivate.visibility === 'private' && userId !== interaction.user.id) {
+            return interaction.reply({ content: 'This user has a private profile.', ephemeral: false });
+        }
         const itemsPerPage = 3;
         let currentPage = 0;
 
@@ -26,7 +35,7 @@ module.exports = {
 
             return {
                 color: 0x1DB954,
-                title: 'Your Spotify Data',
+                title: 'Spotify Data',
                 thumbnail: { url: interaction.user.displayAvatarURL({ dynamic: true }) },
                 description: currentData.map(data => {
                     return `**[${data.trackName}](${data.albumCover})**\nArtist: ${data.artistName}\nAlbum: ${data.albumName}\nDate: <t:${Math.floor(new Date(data.playedAt).getTime() / 1000)}:R>`;
