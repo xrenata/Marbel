@@ -12,18 +12,30 @@ module.exports = {
         if (!bannerURL) {
             bannerURL = interaction.guild.bannerURL()
         }
+        const spotifyData = await Spotify.find({ userId: user.id }).sort({ playedAt: -1 }).limit(3);
+        let spotifyDescription = 'No recently played songs found.';
+
+        if (spotifyData.length > 0) {
+            spotifyDescription = spotifyData.map((data, index) => {
+                return `  - [${data.trackName}](${data.albumCover})`;
+            }).join('\n');
+        }
         const embed = new EmbedBuilder()
         .setTitle('User Profile')
         .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ dynamic: true }) })
         .setColor('Aqua')
-        .setDescription(`${user.tag} is a member of this server since ${member.joinedAt}
-            and has been on Discord since ${user.createdAt}.
-            Their highest role is ${member.roles.highest}.
-            They have ${member.roles.cache.size} roles.
-            This user has ${member.permissions.toArray().length} permissions.
-            This user listen to ${await Spotify.find({userId: user.id}).countDocuments()} songs on Spotify.`)
+        .setDescription(`
+- ${user} is a member of this server since <t:${Math.floor(member.joinedAt.getTime() / 1000)}:R>
+and has been on Discord since <t:${Math.floor(user.createdAt.getTime() / 1000)}:R>.
+    - Their highest role is ${member.roles.highest}.
+    - They have ${member.roles.cache.size} roles.
+    - This user has ${member.permissions.toArray().length} permissions.
+- Recently played songs:
+${spotifyDescription}
+-# This user listened to ${await Spotify.find({ userId: user.id }).countDocuments()} songs on Spotify.
+    `)
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
-        .setImage(bannerURL || 'https://t4.ftcdn.net/jpg/04/28/76/95/360_F_428769564_NB2T4JM9E2xsxFdXXwqW717HwgaZdpAq.jpg')
+        .setImage(bannerURL);
         await interaction.reply({ embeds: [embed] });
     },
 };
