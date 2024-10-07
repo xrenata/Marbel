@@ -5,8 +5,8 @@ module.exports = {
     once: false,
     async execute(oldPresence, newPresence) {
         const user = newPresence.user;
-        const spotifyActivity = newPresence.activities.find(activity => activity.name === 'Spotify');
-        const sameActivity = oldPresence.activities.find(activity => activity.details) === newPresence.activities.find(activity => activity.details);
+        const spotifyActivity = newPresence?.activities?.find(activity => activity.name === 'Spotify');
+        const sameActivity = oldPresence?.activities?.find(activity => activity.details) === newPresence.activities.find(activity => activity.details);
         if(sameActivity) return;
         if (spotifyActivity) {
             const lastSpotifyActivity = await Spotify.findOne({ userId: user.id }).sort({ playedAt: -1 });
