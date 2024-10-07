@@ -13,7 +13,6 @@ module.exports = {
      */
     async execute(interaction) {
         const wsPing = interaction.client.ws.ping;
-        const date = new Date();
         const mongoPing = await mongoose.connection.db.admin().ping();
         const mongoPingTime = mongoPing.ok ? '**Operational**' : '**Not Operational**';
         const uptimeHumanized = moment.duration(os.uptime() * 1000).humanize();
@@ -47,11 +46,6 @@ module.exports = {
   - MongoDB Version: **${require('mongoose').version}**
             `,
         };
-        let mongo_lacenty = Date.now();
-
-        let mongo_status = await date - mongo_lacenty;
-        console.log (mongo_status);
-
         await interaction.reply({ embeds: [embed] });
     },
 };
