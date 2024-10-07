@@ -9,7 +9,6 @@ module.exports = async function AdminAutoComplete(interaction) {
             { name: 'reload', value: 'reload' },
             { name: 'user', value: 'user' }
         ]
-        console.log('choices', choices)
         interaction.respond(
             choices.map(choice => ({ name: choice.name, value: choice.value }))
         )
